@@ -122,7 +122,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 66
+  controlID: 131
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 67
+  controlID: 70
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 68
+  controlID: 71
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -367,8 +367,8 @@ MonoBehaviour:
     vZoomLockedByDefault: 0
     m_HBaseRangeMin: -652
     m_HBaseRangeMax: 652
-    m_VBaseRangeMin: -287.5
-    m_VBaseRangeMax: 287.5
+    m_VBaseRangeMin: -277
+    m_VBaseRangeMax: 277
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -385,11 +385,11 @@ MonoBehaviour:
     m_DrawArea:
       serializedVersion: 2
       x: 0
-      y: 0
+      y: 21
       width: 1304
-      height: 575
+      height: 554
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 652, y: 287.5}
+    m_Translation: {x: 652, y: 277}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
@@ -397,9 +397,9 @@ MonoBehaviour:
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
       x: -652
-      y: -287.5
+      y: -277
       width: 1304
-      height: 575
+      height: 554
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_LastWindowPixelSize: {x: 1304, y: 575}
@@ -436,9 +436,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 4ef7ffff
-      m_LastClickedID: -2226
-      m_ExpandedIDs: 26f8ffff50fbffff
+      m_SelectedIDs: 448a0000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 94e2ffff50fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -498,9 +498,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 2.2932787, y: -13.338074, z: -33.32914}
+    m_Target: {x: -5.6541104, y: 20.687546, z: -32.160416}
     speed: 2
-    m_Value: {x: 2.2932787, y: -13.338074, z: -33.32914}
+    m_Value: {x: -5.6541104, y: 20.687546, z: -32.160416}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -547,13 +547,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.055716697, y: -0.91512334, z: 0.3755224, w: 0.1357779}
+    m_Target: {x: -0.010477705, y: -0.9513585, z: 0.30621344, w: -0.03255271}
     speed: 2
-    m_Value: {x: 0.05592008, y: -0.9145555, z: 0.3768932, w: 0.13569364}
+    m_Value: {x: -0.010018277, y: -0.9513972, z: 0.3062259, w: -0.031125342}
   m_Size:
-    m_Target: 23.533773
+    m_Target: 45.47416
     speed: 2
-    m_Value: 23.533773
+    m_Value: 43.51594
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -787,22 +787,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - "Assets/Scenes/\u21162.3/Scene"
+    - "Assets/Scenes/Town \u21163 (great)"
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - "Assets/Scenes/\u21162.3/Scene"
+  - "Assets/Scenes/Town \u21163 (great)"
   m_LastFoldersGridSize: -1
   m_LastProjectPath: A:\Unity\Ai Development
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 522}
-    m_SelectedIDs: e4400000
-    m_LastClickedID: 16612
-    m_ExpandedIDs: 000000003c4000003e40000040400000424000004440000046400000484000004a4000004c4000004e4000005040000052400000544000005640000058400000bc400000e0400000e440000000ca9a3b
+    scrollPos: {x: 0, y: 474}
+    m_SelectedIDs: 368a0000
+    m_LastClickedID: 35382
+    m_ExpandedIDs: 00000000c84a0000ca4a0000cc4a0000ce4a0000d04a0000d24a0000d44a0000d64a0000d84a0000da4a0000dc4a0000de4a0000e04a0000e24a0000e44a0000324b00003a4b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -830,7 +830,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000003c4000003e40000040400000424000004440000046400000484000004a4000004c4000004e4000005040000052400000544000005640000058400000
+    m_ExpandedIDs: 00000000c84a0000ca4a0000cc4a0000ce4a0000d04a0000d24a0000d44a0000d64a0000d84a0000da4a0000dc4a0000de4a0000e04a0000e24a0000e44a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
