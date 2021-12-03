@@ -1,0 +1,2 @@
+A:\Unity\Ai Development\obj\Debug\NavMeshComponentsEditor.csproj.AssemblyReference.cache
+A:\Unity\Ai Development\obj\Debug\NavMeshComponentsEditor.csproj.CoreCompileInputs.cache

@@ -12,6 +12,8 @@ public class NewChase : MonoBehaviour
     private NavMeshAgent agent;
     private FieldOfView field;
     public float hearRadius = 10f;
+    private bool heal = false;
+    Transform bestPosition = null;
 
     Vector3? lastPlayerPos = null;
 
@@ -29,7 +31,7 @@ public class NewChase : MonoBehaviour
         STATE_GO_LAST_POS = 5,
         STATE_ZERO_TARGETS = 6
     }
-    void Start()
+    private void Start()
     {
         currentHealth = maxHealth;
 
@@ -42,8 +44,11 @@ public class NewChase : MonoBehaviour
         GotoNextPoint();
     }
 
-    void Update()
+    private void Update()
     {
+        if (heal)
+            Heel();
+
         isSee = false;
 
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
@@ -69,7 +74,7 @@ public class NewChase : MonoBehaviour
             _stage = 1;
         }
 
-        if (Vector3.Distance(player.position, transform.position) < hearRadius && Vector3.Distance(player.position, transform.position) >= 1 && field.visibleTargets.Count == 0)
+        if (Vector3.Distance(player.position, transform.position) < hearRadius && Vector3.Distance(player.position, transform.position) >= 1 && field.visibleTargets.Count == 0 && !heal)
         {
             FaceTarget();
         }
@@ -78,7 +83,7 @@ public class NewChase : MonoBehaviour
         updateSmartAi();
     }
 
-    void updateSmartAi()
+    private void updateSmartAi()
     {
         switch (_stage)
         {
@@ -121,9 +126,6 @@ public class NewChase : MonoBehaviour
                 var d = lastPlayerPos.Value;
                 agent.speed = 3;
 
-                //agent.destination = d;
-                //this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(d), 0.1f);
-                //this.transform.position = Vector3.MoveTowards(transform.position, lastPlayerPos.Value, 0.035f);
                 if (agent.SetDestination(d))
                 {
                     agent.SetDestination(d);
@@ -138,47 +140,48 @@ public class NewChase : MonoBehaviour
                 return;
             // visibleTargets.Count != 0
             case (uint)states.STATE_ZERO_TARGETS:
+                if (heal)
+                {
+                    _stage = 3;
+                    lastPlayerPos = null;
+                    updateSmartAi();
+                    return;
+                }
+
+
                 Vector3 direction = player.position - this.transform.position;
-                //float angle = Vector3.Angle(direction, this.transform.forward);
 
                 lastPlayerPos = player.position;
                 isSee = true;
-                //Vector3 direction = player.position - this.transform.position; - поиск идет вокруг.
                 direction.y = 0;
 
                 this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
                 animator.SetBool("isIdle", false);
                 agent.speed = 0;
 
-                if (direction.magnitude > 5)
+                if (direction.magnitude > 5 && !heal)
                 {
                     //0.035f
                     _stage = 3;
-                    updateSmartAi();
-                    return;
                 }
-                else if (direction.magnitude > 2.4f)
+                else if (direction.magnitude > 2.4f && !heal)
                 {
                     this.transform.Translate(0, 0, 0.035f);
                     _stage = 2;
-                    updateSmartAi();
-                    return;
                 }
                 else
-                {
                     _stage = 4;
-                    updateSmartAi();
-                    return;
-                }
+                updateSmartAi();
                 return;
+
             default:
                 return;
         }
     }
 
-    
 
-    void GotoNextPoint()
+
+    private void GotoNextPoint()
     {
         if (points.Length == 0)
             return;
@@ -186,7 +189,7 @@ public class NewChase : MonoBehaviour
         agent.destination = points[destPoint].position;
         destPoint = (destPoint + 1) % points.Length;
     }
-    void FaceTarget()
+    private void FaceTarget()
     {
         Vector3 direction = (player.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
@@ -196,18 +199,56 @@ public class NewChase : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-
+        int rand = Random.Range(0,5);
         animator.SetTrigger("Hurt");
         animator.SetBool("isDead", false);
-
 
         if (currentHealth <= 0)
         {
             Die();
         }
+        else if (5 == 5)
+        {
+            heal = true;
+            RunAway();
+        }
+
     }
 
-    void Die()
+    private void RunAway()
+    {
+        lastPlayerPos = null;
+        Vector3 direction2 = new Vector3(0,0,0);
+        foreach (Transform point in points)
+        {
+            direction2 = point.localPosition - this.transform.position;
+            if (bestPosition == null)
+                bestPosition = point;
+            else
+            {
+                Vector3 distToBestPos = bestPosition.localPosition - this.transform.position;
+                if (direction2.magnitude < distToBestPos.magnitude)
+                    bestPosition = point;
+            }
+        }
+        agent.destination = bestPosition.position;
+        Debug.Log("Best pos:" + bestPosition.position);
+    }
+
+    private void Heel()
+    {
+        this.transform.Translate(0, 0, 0.035f);
+        if (agent.remainingDistance < 0.3f)
+        {
+            Debug.Log("Best pos:" + currentHealth);
+            currentHealth += 50;
+            heal = false;
+            Debug.Log("Best pos:" + currentHealth);
+            bestPosition = null;
+        }
+    }
+
+    private void Die()
     {
         Debug.Log("Skeleton died!");
 
@@ -221,7 +262,7 @@ public class NewChase : MonoBehaviour
     }
 
     // Point towards the player
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, hearRadius);
