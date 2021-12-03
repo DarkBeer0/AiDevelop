@@ -29,7 +29,8 @@ public class NewChase : MonoBehaviour
         STATE_RUN = 3,
         STATE_ATTACK = 4,
         STATE_GO_LAST_POS = 5,
-        STATE_ZERO_TARGETS = 6
+        STATE_ZERO_TARGETS = 6,
+        HEAL_ENEMY_HP = 7
     }
     private void Start()
     {
@@ -64,7 +65,7 @@ public class NewChase : MonoBehaviour
         {
             _stage = 5;
         }
-        else if (points.Length != 0 && isSee == false && lastPlayerPos == null)
+        else if (points.Length != 0 && isSee == false && lastPlayerPos == null && !heal)
         {
             agent.speed = 1;
             _stage = 2;
@@ -87,6 +88,13 @@ public class NewChase : MonoBehaviour
     {
         switch (_stage)
         {
+            // Heal 7
+            case (uint)states.HEAL_ENEMY_HP:
+                animator.SetBool("isIdle", false);
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isRuning", false);
+                animator.SetBool("isAttacking", false);
+                return;
             // Idle state 1
             case (uint)states.STATE_IDLE:
                 animator.SetBool("isIdle", true);
@@ -217,6 +225,7 @@ public class NewChase : MonoBehaviour
 
     private void RunAway()
     {
+
         lastPlayerPos = null;
         Vector3 direction2 = new Vector3(0,0,0);
         foreach (Transform point in points)
@@ -231,15 +240,17 @@ public class NewChase : MonoBehaviour
                     bestPosition = point;
             }
         }
-        agent.destination = bestPosition.position;
         Debug.Log("Best pos:" + bestPosition.position);
     }
 
     private void Heel()
     {
-        this.transform.Translate(0, 0, 0.035f);
+        agent.speed = 3;
+        agent.destination = bestPosition.position;
         if (agent.remainingDistance < 0.3f)
         {
+            agent.speed = 0;
+            _stage = 7;
             Debug.Log("Best pos:" + currentHealth);
             currentHealth += 50;
             heal = false;
@@ -250,15 +261,13 @@ public class NewChase : MonoBehaviour
 
     private void Die()
     {
+        bestPosition = null;
+        agent.speed = 0;
         Debug.Log("Skeleton died!");
-
         animator.SetBool("isDead", true);
-
         GetComponent<Collider>().enabled = false;
         GetComponent<FieldOfView>().viewMeshFilter.gameObject.GetComponent<MeshRenderer>().enabled = false;
         this.enabled = false;
-        
-
     }
 
     // Point towards the player
